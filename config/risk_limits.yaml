@@ -1,0 +1,18 @@
+instruments: [SPY, QQQ]
+dte:
+  minimum: 0
+  maximum: 4
+  preferred: 0
+risk:
+  max_single_long_premium_usd: 100
+  max_defined_spread_risk_usd: 300
+  normal_spread_widths_usd: [1, 2, 3]
+execution:
+  limit_orders_only_preferred: true
+  averaging_down: false
+  revenge_trading: false
+  increase_size_after_loss: false
+  uncovered_short_options: false
+  chase_entries: false
+expiry:
+  close_challenged_etf_spreads_before_expiry: true
