@@ -19,11 +19,19 @@ This codebase stores the operating protocol, fee-aware spread economics, probabi
 
 The official validated personal trade sample starts at zero. Historical conversational trades are not statistical evidence until reconstructed from broker records.
 
+## Self-improvement model
+
+AH-PF improves through evidence, not by automatically rewriting itself after recent wins or losses.
+
+`observe -> classify -> recommend -> record -> diagnose -> compare -> test insight -> walk-forward validate -> paper validate -> approve`
+
+The system now includes post-trade analytics, expanding-window walk-forward utilities, a candidate insight promotion gate, standardized research-run output files, and templates for logging rejected/no-trade candidates. See `docs/self_improvement_loop.md`.
+
 ## Structure
 
-- `docs/` operating protocol and methodology
+- `docs/` operating protocol, methodology and learning governance
 - `config/` risk, fee, and scoring configuration
-- `src/ahpf_options/` research modules
+- `src/ahpf_options/` research, analytics and learning modules
 - `data/` templates and validated logs
 - `backtests/` reproducible experiment outputs
 - `tests/` unit tests
