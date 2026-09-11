@@ -1,0 +1,88 @@
+version: 1
+name: AH-PF A+ 0DTE Rules
+status: paper_trade_only
+
+universe:
+  - SPY
+  - QQQ
+
+score:
+  minimum: 8.0
+  maximum: 10.0
+  components:
+    regime_alignment: 2.0
+    technical_structure: 2.0
+    trigger_retest_quality: 2.0
+    option_economics: 2.0
+    macro_event_risk: 1.0
+    relative_strength_confirmation: 1.0
+
+hard_gates:
+  live_structure_confirmed: true
+  live_chain_required: true
+  defined_risk_only: true
+  binary_event_exposure_allowed: false
+  chase_entry_allowed: false
+  averaging_allowed: false
+  adding_contracts_allowed: false
+  default_contracts: 1
+  underlying_invalidation_required: true
+  fees_required: true
+
+preferred_structures:
+  debit_spread:
+    width_points: 1
+    preferred_max_debit: 0.40
+    typical_profit_capture_fraction_min: 0.50
+    typical_profit_capture_fraction_max: 0.80
+  credit_spread:
+    defined_risk_only: true
+    reject_if_credit_economics_poor: true
+    probability_of_profit_alone_is_not_edge: true
+
+binary_events:
+  avoid_before:
+    - CPI
+    - PPI
+    - FOMC rate decision
+    - FOMC press conference
+    - Nonfarm payrolls
+    - major scheduled policy announcement
+  post_event_minimum_5m_candles_when_volatile: 2
+
+required_market_context:
+  - 5m structure
+  - 15m bias
+  - 1H bias
+  - 4H bias
+  - Daily bias
+  - market breadth
+  - VIX
+  - VIX1D when available
+  - Treasury 2Y
+  - Treasury 10Y
+  - Fed expectations
+  - DXY
+  - oil
+  - gold
+  - Bitcoin cross-asset signal
+  - semiconductor index
+  - SPY and QQQ flows when available
+  - earnings calendar
+  - scheduled macro releases
+  - geopolitical and market-moving news
+
+no_trade_conditions:
+  - score below 8
+  - missing live option chain
+  - missing technical confirmation
+  - poor reward to risk after fees
+  - unresolved binary event risk
+  - extended chase entry
+  - conflicting structure without confirmation
+
+execution:
+  broker_context: Moomoo Malaysia
+  count_entry_and_exit_fees: true
+  forced_liquidation_risk_check: true
+  no_automatic_execution: true
