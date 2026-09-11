@@ -1,0 +1,5 @@
+date,event,consensus,actual,surprise_direction,spy_reaction,qqq_reaction,vix_reaction,treasury_reaction,dxy_reaction,breadth_reaction,notes
+2026-09-10,PPI MoM,0.4%,0.4%,inline,,,,,,,"Inflation backdrop remained restrictive; exact market-reaction fields to be filled from validated data"
+2026-09-10,PPI YoY,,5.4%,hot,,,,,,,"Prior reading referenced at 4.8%; reconcile with official release before quantitative backtest use"
+2026-09-11,CPI headline MoM,0.4%,0.4%,inline,,,,,,,"Post-release price action must be evaluated from verified market data"
+2026-09-11,CPI core MoM,0.2%,0.3%,hot,,,,,,,"Hot core reading; validate all figures against official release before model training"
