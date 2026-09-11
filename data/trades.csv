@@ -1,0 +1,9 @@
+trade_id,date,ticker,expiry,structure,direction,long_strike,short_strike,contracts,entry_price,exit_price,gross_pnl,fees,net_pnl,a_plus_score,market_regime,macro_context,entry_trigger,underlying_invalidation,execution_quality,result_tag,lesson,notes
+2026-08-QQQ-001,2026-08,QQQ,,put_credit_spread,bullish,663,666,1,,,25,,25,,,,,,,WIN,"Defined-risk credit spread","Recorded historical trade, fill details incomplete"
+2026-08-QQQ-002,2026-08,QQQ,,put_credit_spread,bullish,675,678,1,,,20,,20,,,,,,,WIN,"Defined-risk credit spread","Recorded historical trade, fill details incomplete"
+2026-08-QQQ-003,2026-08,QQQ,,put_credit_spread,bullish,716,719,1,,,19,,19,,,,,,,WIN,"Defined-risk credit spread","Recorded historical trade, fill details incomplete"
+2026-08-QQQ-004,2026-08,QQQ,,call_debit_spread,bullish,705,708,1,,,37,,37,,,,,,,WIN,"Debit spread captured directional move","Recorded historical trade, approximate P/L"
+2026-08-QQQ-005,2026-08,QQQ,,put_credit_spread,bullish,712,715,1,,,54,,54,,,,,,,WIN,"Credit spread worked, still require economics check","Recorded historical trade"
+2026-08-QQQ-006,2026-08,QQQ,,spread,unknown,710,710,1,,,-10,,-10,,,,,,,LOSS,"Liquidation risk matters","Recorded as liquidation-related loss, structure requires later reconciliation"
+2026-08-QQQ-007,2026-08,QQQ,,put_credit_spread,bullish,710,713,1,,,,,,,,,,,,OPEN_OR_UNKNOWN,"Historical position noted, outcome not yet reconciled","Needs exact date, fills, fees and result"
+2026-08-EXEC-001,2026-08,QQQ,,unknown,unknown,,,2,,,,,,,,,,,,EXECUTION_ERROR,"Misclick opened 2 contracts","Maximum risk noted around $351 per contract. Exact trade details need reconciliation"
