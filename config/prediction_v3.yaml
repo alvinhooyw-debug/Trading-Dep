@@ -1,0 +1,33 @@
+version: 3
+mode: shadow
+live_scoring_enabled: false
+symbols: [SPY, QQQ]
+dte_range: [0, 4]
+feature_snapshot_minutes: 5
+forward_horizons_minutes: [15, 30, 60, 120]
+targets:
+  - direction_up
+  - direction_down
+  - touched_upper
+  - touched_lower
+  - finished_above_strike
+reliability_gate:
+  min_oos_predictions: 200
+  max_brier_score: 0.22
+  max_calibration_error: 0.08
+  min_net_expectancy: 0.0
+  min_represented_regimes: 2
+  require_no_leakage: true
+  require_fresh_inputs: true
+  require_baseline_beaten: true
+promotion_path:
+  - EXPERIMENTAL
+  - OOS_VALIDATED
+  - SHADOW
+  - APPROVED
+rules:
+  - no_model_may_override_a_hard_veto
+  - no_model_may_place_orders
+  - approved_models_must_be_revalidated_after_regime_drift
+  - stale_or_incomplete_live_inputs_force_no_model_influence
+  - all_performance_must_include_estimated_fees_and_slippage
