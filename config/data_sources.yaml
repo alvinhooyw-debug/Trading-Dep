@@ -1,0 +1,44 @@
+market_data:
+  mode: read_only
+  required_for_live_decision:
+    - underlying_price
+    - quote_timestamp
+    - option_bid_ask
+    - expiry
+    - strike
+  preferred:
+    - delta
+    - implied_volatility
+    - volume
+    - open_interest
+    - vix
+    - vix1d
+    - treasury_10y
+    - dxy
+    - breadth
+    - sox
+  stale_quote_seconds: 60
+
+broker_data:
+  mode: import_only
+  required_fields:
+    - trade_id
+    - timestamp
+    - symbol
+    - expiry
+    - strike
+    - right
+    - side
+    - quantity
+    - price
+    - fees
+  execution_enabled: false
+
+macro_data:
+  mode: read_only
+  required_fields:
+    - event
+    - scheduled_time
+    - consensus
+    - actual
+    - surprise
