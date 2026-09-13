@@ -2,7 +2,7 @@
 
 AH-PF research and decision-support repository for SPY/QQQ short-dated options.
 
-This repository is for research, backtesting, market-regime analysis, trade logging, calibration, reporting, and improving future recommendations. It is not an autonomous trading bot and must not execute brokerage orders.
+This repository is for research, backtesting, market-regime analysis, trade logging, calibration, reporting, predictive validation, and improving future recommendations. It is not an autonomous trading bot and must not execute brokerage orders.
 
 ## Core mandate
 
@@ -21,15 +21,17 @@ This repository is for research, backtesting, market-regime analysis, trade logg
 - `docs/adviser_protocol.md` adviser decision sequence.
 - `docs/self_improvement_loop.md` governed learning process.
 - `docs/UPGRADES_V2.md` market-data, broker-ingestion, reporting and calibration architecture.
+- `docs/PREDICTION_V3.md` predictive research, walk-forward validation and reliability gates.
 - `config/a_plus_rules.yaml` canonical machine-readable hard gates.
 - `config/a_plus_scoring.yaml` detailed scoring weights.
 - `config/risk_limits.yaml` risk constraints.
 - `config/fees.yaml` fee assumptions used by research math.
 - `config/data_sources.yaml` minimum live/read-only data requirements.
+- `config/prediction_v3.yaml` shadow-mode predictor governance and promotion thresholds.
 - `data/trades.csv` canonical validated trade log.
 - `data/macro_events.csv` macro-event log.
-- `data/templates/` research, trade, candidate and external-strategy schemas.
-- `src/ahpf_options/` pricing, probability, regime, scoring, learning and reporting modules.
+- `data/templates/` research, trade, candidate, prediction and external-strategy schemas.
+- `src/ahpf_options/` pricing, probability, regime, scoring, learning, prediction and reporting modules.
 - `backtests/` standardized research-run schema.
 - `tests/` unit tests run by GitHub Actions.
 
@@ -49,6 +51,22 @@ This repository is for research, backtesting, market-regime analysis, trade logg
 - weekly edge reports by setup, symbol, DTE, entry hour and regime
 - external-strategy registry with SPX-to-SPY/QQQ transfer-validation gates
 
+## V3 prediction and validation
+
+V3 adds a shadow predictive layer. It does not influence A+ decisions until it passes the reliability gate.
+
+- five-minute feature snapshots for price, momentum, volatility, multi-timeframe bias, macro, gamma and option-chain context
+- forward-path labels for 15/30/60/120-minute research, level touches and strike outcomes
+- dependency-free standardized logistic-regression baseline
+- chronological expanding-window predictive evaluation
+- Brier score, log loss and calibration tracking
+- model lifecycle: `EXPERIMENTAL -> OOS_VALIDATED -> SHADOW -> APPROVED`
+- reliability gate requiring adequate OOS sample, calibration, positive net expectancy, regime coverage, no leakage, fresh inputs and baseline outperformance
+- prediction journal template for comparing forecasts with realized outcomes
+- approved models still cannot override risk limits, event gates or hard vetoes
+
+Current V3 mode is **shadow** and `live_scoring_enabled` is false. This is deliberate until the repository has enough clean historical and live observations to prove predictive value.
+
 ## Required adviser sequence
 
 1. Review the rulebook and comparable validated trades.
@@ -56,10 +74,11 @@ This repository is for research, backtesting, market-regime analysis, trade logg
 3. Confirm fresh SPY/QQQ structure and market context.
 4. Confirm current option-chain economics, liquidity and fees.
 5. Score the setup and apply hard vetoes.
-6. Trade only when the setup independently meets the A+ standard.
-7. Import actual fills and fees after execution.
-8. Diagnose the outcome without rewriting the original thesis.
-9. Promote new rules only after backtest, out-of-sample and paper-validation gates.
+6. If an approved predictive model exists, use its calibrated probability only as an additional scoring input.
+7. Trade only when the setup independently meets the A+ standard.
+8. Import actual fills and fees after execution.
+9. Diagnose the outcome without rewriting the original thesis.
+10. Promote new rules or models only after out-of-sample and shadow-validation gates.
 
 ## Safety boundary
 
