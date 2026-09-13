@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ahpf-options"
-version = "0.1.0"
-description = "AH-PF SPY/QQQ short-dated options research and decision-support infrastructure"
+version = "0.3.0"
+description = "AH-PF SPY/QQQ short-dated options research, prediction validation and decision-support infrastructure"
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
