@@ -1,0 +1,13 @@
+# Research defaults only. Update from the current Moomoo Malaysia schedule before live use.
+broker: Moomoo Malaysia
+currency: USD
+options:
+  commission_per_contract_when_premium_gt_0_10: 0.20
+  platform_fee_per_contract: 0.45
+  platform_fee_minimum_per_order: 0.99
+  include_regulatory_and_settlement_fees: true
+  estimated_two_leg_round_trip_usd: 5.50
+notes:
+  - Never assume zero commissions.
+  - Use actual broker fills and actual fees for validated trade records.
+  - Revalidate this configuration when the broker fee schedule changes.

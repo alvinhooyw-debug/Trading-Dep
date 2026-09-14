@@ -1,0 +1,1 @@
+prediction_id,timestamp_et,model_id,feature_version,symbol,dte,target,horizon_minutes,forecast_probability,actual_outcome,underlying_price,strike,regime,macro_state,vix,vix1d,option_iv,option_delta,bid_ask_width_pct,strike_distance_pct,estimated_net_ev,decision_influence,model_state,data_fresh,brier_component,notes
