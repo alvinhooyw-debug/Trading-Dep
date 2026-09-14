@@ -22,14 +22,17 @@ This repository is for research, backtesting, market-regime analysis, trade logg
 - `docs/self_improvement_loop.md` governed learning process.
 - `docs/UPGRADES_V2.md` market-data, broker-ingestion, reporting and calibration architecture.
 - `docs/PREDICTION_V3.md` predictive research, walk-forward validation and reliability gates.
+- `docs/STRATEGY_EXPERIMENTS.md` external strategy hypotheses, adaptations and test plans.
 - `config/a_plus_rules.yaml` canonical machine-readable hard gates.
 - `config/a_plus_scoring.yaml` detailed scoring weights.
 - `config/risk_limits.yaml` risk constraints.
 - `config/fees.yaml` fee assumptions used by research math.
 - `config/data_sources.yaml` minimum live/read-only data requirements.
 - `config/prediction_v3.yaml` shadow-mode predictor governance and promotion thresholds.
+- `config/strategy_experiments.yaml` parameter grids and promotion rules for experimental strategy families.
 - `data/trades.csv` canonical validated trade log.
 - `data/macro_events.csv` macro-event log.
+- `data/external_strategies.csv` registered external strategy hypotheses and validation state.
 - `data/templates/` research, trade, candidate, prediction and external-strategy schemas.
 - `src/ahpf_options/` pricing, probability, regime, scoring, learning, prediction and reporting modules.
 - `backtests/` standardized research-run schema.
@@ -66,6 +69,15 @@ V3 adds a shadow predictive layer. It does not influence A+ decisions until it p
 - approved models still cannot override risk limits, event gates or hard vetoes
 
 Current V3 mode is **shadow** and `live_scoring_enabled` is false. This is deliberate until the repository has enough clean historical and live observations to prove predictive value.
+
+## Experimental strategy families
+
+External strategy ideas are never promoted straight into A+ rules. The current research registry includes:
+
+- structure-aligned OTM credit spreads: test whether selling beyond confirmed support/resistance improves fee-adjusted expectancy versus delta/distance-only selection
+- 7-10 DTE trend credit spreads: a separate family testing whether lower gamma exposure improves expectancy and realized tail risk versus matched 0DTE and 1-4 DTE setups
+
+Both remain `CANDIDATE` and have `live_trade_influence: false` until they pass reproduction, chronological OOS, reliability and paper-validation gates.
 
 ## Required adviser sequence
 
