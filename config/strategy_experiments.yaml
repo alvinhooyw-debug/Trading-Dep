@@ -1,0 +1,75 @@
+version: 1
+mode: research_only
+live_trade_influence: false
+
+experiments:
+  bouley_structure_aligned_credit_v1:
+    status: CANDIDATE
+    targets: [SPY, QQQ]
+    dte_bands: [[0, 0], [1, 4]]
+    direction_rule: trend_aligned
+    structure_rule: short_strike_beyond_confirmed_support_or_resistance
+    compare_against:
+      - delta_matched_credit_spread
+      - distance_matched_credit_spread
+    variables_to_test:
+      short_delta_bands: [[0.05, 0.10], [0.10, 0.15], [0.15, 0.20], [0.20, 0.25]]
+      width_points: [1, 2, 3]
+      credit_as_width_pct_bands: [[0.15, 0.20], [0.20, 0.25], [0.25, 0.30], [0.30, 0.40]]
+      session_phase: true
+      macro_proximity: true
+      regime: true
+    risk_measurement:
+      track_contractual_max_loss: true
+      track_planned_stop_loss: true
+      track_stress_loss_with_slippage: true
+      technical_invalidation_primary: true
+      short_strike_is_emergency_line: true
+    required_metrics:
+      - net_expectancy_after_fees
+      - win_rate
+      - average_win
+      - average_loss
+      - max_drawdown
+      - stop_frequency
+      - tail_loss_frequency
+      - brier_score
+      - calibration_error
+    promotion_gate: reliability_gate_v3
+
+  bouley_7_10dte_trend_credit_v1:
+    status: CANDIDATE
+    targets: [SPY, QQQ]
+    dte_bands: [[7, 10]]
+    direction_rule: trend_aligned
+    trend_confirmation:
+      require_1h_4h_alignment: true
+      ma10_is_feature_only: true
+    structure_rule: short_strike_beyond_confirmed_support_or_resistance
+    variables_to_test:
+      short_delta_bands: [[0.10, 0.15], [0.15, 0.20], [0.20, 0.25]]
+      width_points: [1, 2, 3]
+      credit_as_width_pct_bands: [[0.15, 0.20], [0.20, 0.25], [0.25, 0.30], [0.30, 0.40]]
+      profit_capture_pct: [0.50, 0.60, 0.70]
+      technical_invalidation: true
+      avoid_binary_events_unless_tested: true
+    compare_against:
+      - matched_0dte_structure_aligned_credit
+      - matched_1_4dte_structure_aligned_credit
+    risk_measurement:
+      track_contractual_max_loss: true
+      track_planned_stop_loss: true
+      track_stress_loss_with_slippage: true
+    required_metrics:
+      - net_expectancy_after_fees
+      - median_holding_time
+      - win_rate
+      - average_win
+      - average_loss
+      - max_drawdown
+      - tail_loss_frequency
+      - fee_drag_pct
+      - slippage_pct
+      - brier_score
+      - calibration_error
+    promotion_gate: reliability_gate_v3
