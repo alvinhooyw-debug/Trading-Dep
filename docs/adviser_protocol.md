@@ -13,9 +13,24 @@ AH-PF is a decision-support and research system for SPY/QQQ 0-4 DTE options. It 
 7. Read current executable option-chain pricing and liquidity.
 8. Calculate fee-adjusted economics and probability estimates.
 9. Apply thesis-failure / expected-move-failure checks before final scoring.
-10. Apply hard vetoes.
-11. Score the setup. A+ requires at least 90/100 and no veto.
+10. Apply hard vetoes and the mandatory A+ credit-spread gates below. A failed gate cannot be rescued by directional conviction or score averaging.
+11. Score the setup. A+ requires at least 90/100 AND every mandatory gate to pass.
 12. Return only A+ TRADE, WAIT or NO TRADE.
+
+## Mandatory A+ credit-spread gates
+For the user's core high-POP 0DTE credit-spread mandate, every item below is pass/fail. If any required item fails or cannot be verified with fresh data, the output is WAIT or NO TRADE, never A+.
+
+1. **Freshness gate:** Current underlying price, completed intraday candles, current option chain, bid/ask, short-leg delta and event calendar must be fresh enough for the decision. Stale or unavailable chain economics means no trigger.
+2. **High-POP gate:** Target approximately 80% or better modeled POP. Short-leg absolute delta around 0.15-0.20 may be used only as a rough probability proxy, never as proof of POP. A materially higher short delta requires independently modeled evidence that still satisfies the high-POP mandate.
+3. **Economics gate:** Credit, width, fees, slippage, planned exits and tail loss must produce positive estimated expectancy. For the current one-contract fee assumptions, approximate screening floors for an 80% full-win/full-loss profile are $0.26 on $1-wide, $0.46 on $2-wide and $0.66 on $3-wide. These are screening floors, not automatic approval. A spread below the applicable floor cannot be labelled A+ unless a more complete documented exit model demonstrates positive net expectancy and the high-POP requirement still passes.
+4. **Follow-through gate:** Directional conditions alone are insufficient. After the trigger/rejection, require actual price acceptance in the thesis direction, normally a completed 5-minute structural break plus follow-through or a failed reclaim. Mere RSI rollover, SQZMOM deceleration, resistance contact, or higher-timeframe bearish/bullish bias is not confirmation by itself.
+5. **Thesis-failure gate:** If price has multiple reasons to move in the thesis direction but refuses to do so, treat that resilience as adverse evidence. Unresolved thesis-failure warnings automatically block A+.
+6. **Countertrend gate:** When the execution timeframe or 15-minute structure flips against the proposed trade while higher timeframes still support it, do not use the higher timeframes to override the conflict. Require a fresh trigger and renewed acceptance before reconsideration.
+7. **Risk gate:** Defined-risk spread must remain within the approximately USD300 maximum risk and must have a pre-defined technical invalidation, option-loss rule, time stop and event rule.
+8. **No stale-strike gate:** Any material underlying move, BOS/CHoCH, volatility change or thesis failure requires fresh strike selection, delta, POP and credit. Never reuse an earlier candidate spread after the market state changes.
+
+### Anti-overconfidence rule
+A numerical A+ score is subordinate to the gates. A 90+ score cannot turn a failed POP, economics, freshness, follow-through, thesis-failure or risk gate into an A+ trade. If evidence conflicts, prefer WAIT/NO TRADE. The system is optimized for avoiding large asymmetric losses, not maximizing trade count.
 
 ## Thesis-failure / expected-move-failure rule
 A setup must be downgraded when price fails to behave in the direction the thesis reasonably expects. Failure to follow through is not neutral information.
@@ -42,6 +57,8 @@ For a bullish setup, apply the exact mirror logic.
 
 ## Mandatory actionable-trade output
 Include underlying, direction, expiry, DTE, strategy, every leg, exact underlying/chart trigger, optimal price, acceptable range, hard maximum/minimum, estimated fees, max risk, max profit, breakeven, return/risk, estimated POP and method, conviction, A+ score, bull case, bear case, gamma context, macro roadmap, holding instruction, T1, T2, invalidation, option stop when appropriate, time stop, event exit, maximum acceptable loss, chase rule, comparable sample size and confidence.
+
+For every proposed credit spread, also show a compact **gate card** with PASS/FAIL/UNKNOWN for Freshness, High-POP, Economics, Follow-through, Thesis-failure, Countertrend, Risk and Stale-strike. Any FAIL or required UNKNOWN means the trade cannot be A+.
 
 ## Risk rules
 - Single long call/put premium at risk: approximately USD 100 maximum.
